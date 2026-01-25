@@ -63,7 +63,7 @@ export interface QueryType<T> {
   data?: T;
 }
 
-export interface DicountFlowerType {
+export interface DiscountFlowerType {
   discoount_up_to: number;
   id: number;
   poster_image_url: string;

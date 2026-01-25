@@ -5,7 +5,7 @@ import Card from "./card";
 
 
 const Products = () => {
-  const { data, isLoading, isError }: QueryType<ProductType[]> =
+  const { data,  }: QueryType<ProductType[]> =
     useQueryHandler({
       url: "flower/category/house-plants",
       pathname: "products",

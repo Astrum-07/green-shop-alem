@@ -1,9 +1,9 @@
-import React from 'react';
+
 import type { FC } from 'react';
-import { useNavigate } from "react-router-dom";
+
 import {
     HeartFilled,
-    HeartOutlined,
+
     SearchOutlined,
     ShoppingCartOutlined,
 } from "@ant-design/icons";
