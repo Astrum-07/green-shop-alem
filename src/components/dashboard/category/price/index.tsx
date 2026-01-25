@@ -1,5 +1,5 @@
 import { Slider } from "antd";
-import React, { useState } from "react";
+import  { useState } from "react";
 
 const Price = () => {
   const [slider, setSlider] = useState<number[]>([0, 1000]);
