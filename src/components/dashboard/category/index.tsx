@@ -1,15 +1,23 @@
 import type { CategoryType, QueryType } from "../../../@types";
 import { loaderApi } from "../../../generic/loader";
+import { useSearchParamsHandler } from "../../../hooks/paramsApi";
 
 import { useQueryHandler } from "../../../hooks/useQuery";
 import Discount from "./discount";
 import Price from "./price";
 
 const Category = () => {
+  const { setParam, getParam } = useSearchParamsHandler();
+  const category = getParam("category") || "house-plants";
+  const range_min = getParam("range_min") || 0;
+  const range_max = getParam("range_max") || 1000;
+  const type = getParam("type")||"all-plants"
+  const sort = getParam("sort")||"default-sorting"
   const { data, isLoading, isError }: QueryType<CategoryType[]> =
     useQueryHandler({
       url: "flower/category",
       pathname: "category",
+     
     });
 
   const { categoryLoader } = loaderApi();
@@ -21,17 +29,20 @@ const Category = () => {
         {isLoading || isError
           ? categoryLoader()
           : data?.map((value) => (
-              <div 
+              <div
+                onClick={() =>
+                  setParam({ category: value.route_path, range_min, range_max, type, sort })
+                }
                 key={value._id}
-                className="flex items-center justify-between hover:text-main cursor-pointer text-[#3d3d3d]"
+                className={`flex items-center justify-between hover:text-main cursor-pointer text-[#3d3d3d] ${category === value.route_path && "text-main"}`}
               >
                 <h3>{value.title}</h3>
                 <h3>({value.count})</h3>
               </div>
             ))}
       </div>
-      <Price/>
-      <Discount/>
+      <Price />
+      <Discount />
     </div>
   );
 };

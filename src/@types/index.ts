@@ -1,5 +1,3 @@
-
-
 export interface AuthType {
   billing_address: {
     country: string;
@@ -20,12 +18,17 @@ export interface AuthType {
   name: string;
   order_list: string[];
   password: string;
-  permission: { create: boolean; update: boolean; delete: boolean; read: boolean };
+  permission: {
+    create: boolean;
+    update: boolean;
+    delete: boolean;
+    read: boolean;
+  };
   phone_number: string;
   profile_photo: string;
   surname: string;
-  user_type:string;
-  username:string;
+  user_type: string;
+  username: string;
   wishlist: string[];
   _id: string;
 }
@@ -70,7 +73,6 @@ export interface DiscountFlowerType {
   title: string;
 }
 
-
 export interface ProductType {
   _id: string;
   title: string;
@@ -91,4 +93,15 @@ export interface ProductType {
   category: string;
   count?: number | undefined;
   userPrice?: number;
+}
+
+export interface ProductsTitleType {
+  id: number;
+  title: string;
+  route_path: string;
+}
+
+export interface ShopCartType extends ProductType {
+  counter: number;
+  userPrice: number;
 }
