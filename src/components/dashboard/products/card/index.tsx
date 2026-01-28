@@ -28,7 +28,7 @@ const Card: FC<ProductType> = (props) => {
 
         <div className="hidden gap-3 justify-center inset-x-auto absolute bottom-5 items-center group-hover:flex animate-in fade-in slide-in-from-bottom-2">
           <div
-            onClick={() => dispatch(getData(props))}
+           onClick={() => dispatch(getData({ ...props, counter: 1 }))}
             className={`${icon_style}`}
           >
             <ShoppingCartOutlined />

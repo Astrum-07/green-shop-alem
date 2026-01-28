@@ -20,14 +20,14 @@ const getStoredData = (key: string): ShopCartType[] => {
 
 const initialState: InitialStateType = {
   data: getStoredData("shop"),
-  wishlist: getStoredData("wishlist"), // Wishlist yuklanmoqda
+  wishlist: getStoredData("wishlist"),
 };
 
 const shopSlice = createSlice({
   name: "shop-slice",
   initialState,
   reducers: {
-    // --- SAVATCHA MANTIQI ---
+
     getData(state, { payload }: PayloadAction<ShopCartType>) {
       const exists = state.data.find((value) => value._id === payload._id);
       if (exists) {
@@ -48,20 +48,20 @@ const shopSlice = createSlice({
       localStorage.setItem("shop", JSON.stringify(current(state).data));
     },
 
-    // --- LIKE (WISHLIST) MANTIQI ---
+
     toggleWishlist(state, { payload }: PayloadAction<ShopCartType>) {
       const exists = state.wishlist.find((item) => item._id === payload._id);
 
       if (exists) {
-        // Agar allaqachon bo'lsa - o'chirib tashlaymiz
+
         state.wishlist = state.wishlist.filter(
           (item) => item._id !== payload._id,
         );
       } else {
-        // Agar yo'q bo'lsa - qo'shamiz
+
         state.wishlist.push(payload);
       }
-      // LocalStorage ga saqlash
+
       localStorage.setItem("wishlist", JSON.stringify(current(state).wishlist));
     },
 
@@ -70,7 +70,7 @@ const shopSlice = createSlice({
       localStorage.setItem("wishlist", JSON.stringify(current(state).wishlist));
     },
 
-    // --- INCREMENT / DECREMENT ---
+
     increment(state, { payload }) {
       state.data = state.data.map((value) => {
         if (value._id === payload) {
