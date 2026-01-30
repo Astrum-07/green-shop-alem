@@ -1,26 +1,29 @@
-import {createBrowserRouter} from "react-router-dom"
-import Home from "../pages/home"
-import Blog from "../pages/blog"
-import Profile from "../pages/profile"
-import Shop from "../pages/shop"
-
+import { createBrowserRouter } from "react-router-dom";
+import Home from "../pages/home";
+import Blog from "../pages/blog";
+import Profile from "../pages/profile";
+import Shop from "../pages/shop";
+import ProductDetail from "../pages/ProductDetail";
 
 export const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Home/>
-    },
-    {
-        path: "/blog",
-        element: <Blog/>
-    },
-         {
-        path: "/profile",
-        element: <Profile/>
-    },
-      {
-        path: "/shop",
-        element: <Shop/>
-    },
-     
-])
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/blog",
+    element: <Blog />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
+  },
+  {
+    path: "/shop",
+    element: <Shop />,
+  },
+  {
+    path: "/shop/:id",
+    element: <ProductDetail />,
+  },
+]);

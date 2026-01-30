@@ -18,7 +18,7 @@ const Header = () => {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <div className="py-3 border-b border-[#00800043] relative bg-white">
+    <div className="py-3    border-b border-[#00800043] bg-white">
       <div className="w-[90%] m-auto flex items-center justify-between">
 
        <Link to={"/"}>
