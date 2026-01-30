@@ -27,13 +27,15 @@ const Products = () => {
     });
 
   const { productLoader } = loaderApi();
+  
   return (
     <div>
       <div className="mb-2">
-        {" "}
         <ProductsTitle />
       </div>
-      <div className="grid grid-cols-3 gap-5">
+
+      {/* Grid qismi responsive qilindi */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
         {isLoading || isError
           ? productLoader()
           : data?.map((value) => <Card key={value._id} {...value} />)}

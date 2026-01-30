@@ -3,7 +3,7 @@ import type { HeroMockType, ProductsTitleType } from "../@types";
 export const hero_mock: HeroMockType[] = [
   {
     id: 0,
-    title: "Le's Make a Better",
+    title: "Let's Make a Better",
     subTitle: "WELCOME TO GREENSHOP",
     description:
       "We are an online plant shop offering a wide range of cheap and trendy plants. Use our plants to create an unique Urban Jungle.",

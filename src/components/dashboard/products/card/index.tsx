@@ -12,7 +12,7 @@ import { getData } from "../../../../redux/shop-slice";
 
 const Card: FC<ProductType> = (props) => {
   const icon_style =
-    "bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer text-[20px] hover:text-[#46A358] transition-colors";
+    "bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer text-[20px] hover:text-[#46A358] transition-colors shadow-sm";
   const { data } = useReduxSelector((state) => state.shopSlice);
   console.log(data);
   
@@ -23,16 +23,17 @@ const Card: FC<ProductType> = (props) => {
         <img
           src={props.main_image}
           alt="flower"
-          className="w-full h-full max-sm:h-full object-contain"
+          className="w-full h-full object-contain"
         />
 
-        <div className="hidden gap-3 justify-center inset-x-auto absolute bottom-5 items-center group-hover:flex animate-in fade-in slide-in-from-bottom-2">
+        
+        <div className="flex md:hidden md:group-hover:flex gap-3 justify-center inset-x-auto absolute bottom-5 items-center animate-in fade-in slide-in-from-bottom-2">
           <div
-          onClick={() => dispatch(getData({ 
-  ...props, 
-  counter: 1, 
-  userPrice: props.userPrice ?? props.price 
-}))}
+            onClick={() => dispatch(getData({ 
+              ...props, 
+              counter: 1, 
+              userPrice: props.userPrice ?? props.price 
+            }))}
             className={`${icon_style}`}
           >
             <ShoppingCartOutlined />
@@ -40,7 +41,9 @@ const Card: FC<ProductType> = (props) => {
           <div className={`${icon_style}`}>
             <HeartFilled className="text-red-500" />
           </div>
-          <div className={`${icon_style}`}>
+          <div
+          
+          className={`${icon_style}`}>
             <SearchOutlined />
           </div>
         </div>

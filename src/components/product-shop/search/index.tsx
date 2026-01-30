@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useReduxDispatch, useReduxSelector } from "../../../hooks/useRedux";
-import { getData, toggleWishlist } from "../../../redux/shop-slice"; // toggleWishlist qo'shildi
-import { useAxios } from "../../../hooks/useAxios"; // Axios hookni import qiling
+import { getData, toggleWishlist } from "../../../redux/shop-slice";
+import { useAxios } from "../../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import { Heart, Minus, Plus, Loader } from "lucide-react";
 
@@ -45,7 +45,7 @@ const ProductDetails = () => {
               <div
                 key={idx}
                 onClick={() => setActiveImg(img)}
-                className={`w-[100px] h-[100px] cursor-pointer border-2 rounded-lg p-2 bg-[#FBFBFB] transition-all ${
+                className={`w-25 h-25 cursor-pointer border-2 rounded-lg p-2 bg-[#FBFBFB] transition-all ${
                   activeImg === img ? "border-[#46A358]" : "border-transparent"
                 }`}
               >
@@ -60,7 +60,7 @@ const ProductDetails = () => {
           <div className="flex-1 bg-[#FBFBFB] rounded-lg p-10 flex justify-center items-center border border-[#EAEAEA]">
             <img
               src={activeImg || product.main_image}
-              className="w-full max-h-[400px] object-contain"
+              className="w-full max-h-100 object-contain"
               alt="main"
             />
           </div>
