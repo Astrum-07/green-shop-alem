@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction,  } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { ProductType, ShopCartType } from "../@types";
 
 interface InitialStateType {
@@ -7,19 +7,15 @@ interface InitialStateType {
   coupon: number; 
 }
 
-
-
 const getStoredData = <T>(key: string): T[] => {
   try {
     const storedData = localStorage.getItem(key);
     return storedData ? JSON.parse(storedData) : [];
   } catch (error) {
     console.log(error);
-    
     return [];
   }
 };
-
 
 const initialState: InitialStateType = {
   data: getStoredData<ShopCartType>("shop"),
@@ -84,19 +80,27 @@ const shopSlice = createSlice({
       localStorage.setItem("wishlist", JSON.stringify(state.wishlist));
     },
 
+    // QO'SHILGAN YANGI FUNKSIYA:
+    removeFromWishlist(state, action: PayloadAction<string>) {
+      state.wishlist = state.wishlist.filter((item) => item._id !== action.payload);
+      localStorage.setItem("wishlist", JSON.stringify(state.wishlist));
+    },
+
     getCoupon(state, action: PayloadAction<number>) {
       state.coupon = action.payload;
     },
   },
 });
 
+// Barcha funksiyalarni eksport qilish (removeFromWishlist qo'shildi)
 export const { 
   getData, 
   deleteData, 
   increment, 
   decrement, 
   getCoupon, 
-  toggleWishlist 
+  toggleWishlist,
+  removeFromWishlist 
 } = shopSlice.actions;
 
 export default shopSlice.reducer;

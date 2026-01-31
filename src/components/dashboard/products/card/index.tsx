@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { useNavigate } from "react-router-dom";
+
 import {
   HeartFilled,
   SearchOutlined,
@@ -8,6 +8,7 @@ import {
 import type { ProductType } from "../../../../@types";
 import { useReduxDispatch, useReduxSelector } from "../../../../hooks/useRedux";
 import { getData, toggleWishlist } from "../../../../redux/shop-slice";
+import { useNavigate } from "react-router-dom";
 
 const Card: FC<ProductType> = (props) => {
   const navigate = useNavigate();
