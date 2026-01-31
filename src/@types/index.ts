@@ -123,3 +123,22 @@ export interface Post {
   title: string;
   desc: string;
 }
+
+export interface AuthorType {
+  _id: string;
+  full_name: string;
+  avatar?: string;
+  followers_count?: number;
+}
+
+export interface BlogType {
+  _id: string;
+  title: string;
+  short_description: string;
+  content: string;
+  created_at: string;
+  created_by: AuthorType | string; // Obyekt yoki ID bo'lib kelishi mumkin
+  views: number;
+  reaction_length?: number;
+  comments_count?: number;
+}

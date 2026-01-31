@@ -5,6 +5,7 @@ interface QueryHandlerType {
   url: string;
   pathname: string;
   param?: object;
+  enabled?: boolean
 }
 
 export const useQueryHandler = ({ url, pathname, param }: QueryHandlerType) => {

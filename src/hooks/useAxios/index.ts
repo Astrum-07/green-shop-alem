@@ -5,6 +5,7 @@ interface AxiosType {
   method?: "GET" | "POST" | "PUT" | "DELETE";
   body?: object;
   param?: object;
+  data?: any; 
 }
 
 export const useAxios = () => {

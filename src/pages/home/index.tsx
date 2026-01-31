@@ -1,5 +1,6 @@
 
 
+
 import BlogPosts from '../../components/blogpost'
 import Dashboard from '../../components/dashboard'
 import Footer from '../../components/footer'
@@ -15,7 +16,7 @@ const Home = () => {
          <Hero/>
          <Dashboard/>
          <SummerSection/>
-         <BlogPosts/>
+          <BlogPosts/>
        </div>
        <Footer/>
     </div>
