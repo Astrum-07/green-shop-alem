@@ -105,3 +105,21 @@ export interface ShopCartType extends ProductType {
   counter: number;
   userPrice: number;
 }
+
+
+export interface BannerData {
+  id: number;
+  title: string;
+  subtitle: string;
+  desc: string;
+  img: string;
+}
+
+export interface Post {
+  id: number;
+  image: string;
+  date: string;
+  readTime: string;
+  title: string;
+  desc: string;
+}

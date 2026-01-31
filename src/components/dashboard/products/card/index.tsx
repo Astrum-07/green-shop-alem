@@ -34,23 +34,32 @@ const Card: FC<ProductType> = (props) => {
 
         <div className="flex md:hidden md:group-hover:flex gap-3 justify-center inset-x-auto absolute bottom-5 items-center animate-in fade-in slide-in-from-bottom-2">
           <div
-            onClick={() => dispatch(getData({ ...props, counter: 1, userPrice: props.price }))}
+            onClick={() =>
+              dispatch(
+                getData({ ...props, counter: 1, userPrice: props.price }),
+              )
+            }
             className={icon_style}
           >
             <ShoppingCartOutlined />
           </div>
-          <div 
-            onClick={() => dispatch(toggleWishlist(props))} 
-            className={icon_style}
-          >
-           
-            
-            <HeartFilled className={isWishlisted ? "text-red-500" : "text-gray-400"} />
-          </div>
           <div
-            onClick={goToDetail}
+            onClick={() =>
+              dispatch(
+                toggleWishlist({
+                  ...props,
+                  count: 1,
+                  userPrice: props.price,
+                }),
+              )
+            }
             className={icon_style}
           >
+            <HeartFilled
+              className={isWishlisted ? "text-red-500" : "text-gray-400"}
+            />
+          </div>
+          <div onClick={goToDetail} className={icon_style}>
             <SearchOutlined />
           </div>
         </div>
@@ -63,14 +72,16 @@ const Card: FC<ProductType> = (props) => {
       </div>
 
       <div className="mt-2">
-        <h3 
+        <h3
           onClick={goToDetail}
           className="text-[#3D3D3D] text-[16px] font-medium pt-2.5 pb-0.5 cursor-pointer hover:text-[#46A358] capitalize"
         >
           {props.title}
         </h3>
         <div className="flex items-center gap-3">
-          <h1 className="text-[#46A358] text-[18px] font-bold">${props.price}</h1>
+          <h1 className="text-[#46A358] text-[18px] font-bold">
+            ${props.price}
+          </h1>
           {props.discount && (
             <h1 className="font-light text-[#A5A5A5] line-through text-[16px]">
               ${props.discount_price}

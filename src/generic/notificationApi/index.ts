@@ -1,5 +1,5 @@
 import { toast } from "react-hot-toast";
-type NotificationType = "login" | "409" | "second_password" | "register"|"error"
+type NotificationType = "login" | "409" | "second_password" | "register"|"error"|"coupon"|"not_coupon"
 
 export const notificationApi = () => {
   const notify = (type: NotificationType) => {
@@ -14,6 +14,10 @@ export const notificationApi = () => {
         return toast.success("Muvaffaqiyatli ro'yxatdan o'tdingiz!");  
          case "error":
         return toast.error("Something Error!"); 
+         case "coupon":
+        return toast.success("Chegirma qabul qilindi!");
+      case "not_coupon":
+        return toast.error("Chegirma aniqlanmadi!");
     }
   };
 

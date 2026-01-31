@@ -6,6 +6,7 @@ import { useReduxDispatch } from "../../useRedux";
 import { setAuthorizationModalVisiblty } from "../../../redux/modal-store";
 import { getUser } from "../../../redux/user-slice";
 import { signInWithGoogle } from "../../../config";
+import { getCoupon } from "../../../redux/shop-slice"; // Qoshimcha: Yangi import
 
 export const useLoginMutation = () => {
   const notify = notificationApi();
@@ -49,7 +50,6 @@ export const useRegisterMutation = () => {
       dispatch(setAuthorizationModalVisiblty());
     },
     onError(error: { status: number }) {
-      // console.log(error);
       if (error.status === 409) {
         notify("409");
       }
@@ -84,6 +84,34 @@ export const useOnAuthGoogle = () => {
         return notify("409");
       }
       notify("error");
+    },
+  });
+};
+
+// Qoshimcha: Birinchi koddan olingan yangi hook
+export const useGetCoupon = () => {
+  const axios = useAxios();
+  const dispatch = useReduxDispatch();
+  const notify = notificationApi();
+
+  return useMutation({
+    mutationKey: ["coupon"],
+    mutationFn: ({ coupon_code }: { coupon_code: string }) =>
+      axios({
+        url: "features/coupon",
+        method: "GET",
+        param: { coupon_code: coupon_code },
+      }),
+
+    onSuccess(data) {
+      console.log("Kupon ma'lumoti:", data);
+      dispatch(getCoupon(data?.data?.discount_for || data?.discount_for));
+      notify("coupon");
+    },
+    onError(error: { status: number }) {
+      if (error.status === 400) {
+        notify("not_coupon");
+      }
     },
   });
 };

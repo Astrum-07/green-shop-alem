@@ -1,107 +1,102 @@
-import { createSlice, type PayloadAction, current } from "@reduxjs/toolkit";
-import type { ShopCartType } from "../@types";
-
+import { createSlice, type PayloadAction,  } from "@reduxjs/toolkit";
+import type { ProductType, ShopCartType } from "../@types";
 
 interface InitialStateType {
-  data: ShopCartType[];
-  wishlist: ShopCartType[];
+  data: ShopCartType[]; 
+  wishlist: ProductType[];
+  coupon: number; 
 }
 
-const getStoredData = (key: string): ShopCartType[] => {
+
+
+const getStoredData = <T>(key: string): T[] => {
   try {
     const storedData = localStorage.getItem(key);
     return storedData ? JSON.parse(storedData) : [];
   } catch (error) {
-    console.log(error );
+    console.log(error);
     
     return [];
   }
 };
 
+
 const initialState: InitialStateType = {
-  data: getStoredData("shop"),
-  wishlist: getStoredData("wishlist"),
+  data: getStoredData<ShopCartType>("shop"),
+  wishlist: getStoredData<ProductType>("wishlist"),
+  coupon: 0,
 };
 
 const shopSlice = createSlice({
   name: "shop-slice",
   initialState,
   reducers: {
+    getData(state, action: PayloadAction<ProductType & { counter?: number }>) {
+      const existingItem = state.data.find(
+        (item) => item._id === action.payload._id
+      );
 
-    getData(state, { payload }: PayloadAction<ShopCartType>) {
-      const exists = state.data.find((value) => value._id === payload._id);
-      if (exists) {
-        state.data.forEach((value) => {
-          if (value._id === payload._id) {
-            value.counter += 1;
-            value.userPrice = value.price * value.counter;
-          }
-        });
+      if (existingItem) {
+        existingItem.counter += action.payload.counter || 1;
+        existingItem.userPrice = existingItem.price * existingItem.counter;
       } else {
-        state.data.push({ ...payload, counter: 1, userPrice: payload.price });
+        const newItem: ShopCartType = {
+          ...action.payload,
+          counter: action.payload.counter || 1,
+          userPrice: action.payload.price * (action.payload.counter || 1),
+        };
+        state.data.push(newItem);
       }
-      localStorage.setItem("shop", JSON.stringify(current(state).data));
+      localStorage.setItem("shop", JSON.stringify(state.data));
     },
 
-    deleteData(state, { payload }) {
-      state.data = state.data.filter((value) => value._id !== payload);
-      localStorage.setItem("shop", JSON.stringify(current(state).data));
+    deleteData(state, action: PayloadAction<string>) {
+      state.data = state.data.filter((item) => item._id !== action.payload);
+      localStorage.setItem("shop", JSON.stringify(state.data));
     },
 
+    increment(state, action: PayloadAction<string>) {
+      const item = state.data.find((item) => item._id === action.payload);
+      if (item) {
+        item.counter += 1;
+        item.userPrice = item.price * item.counter;
+        localStorage.setItem("shop", JSON.stringify(state.data));
+      }
+    },
 
-    toggleWishlist(state, { payload }: PayloadAction<ShopCartType>) {
-      const exists = state.wishlist.find((item) => item._id === payload._id);
+    decrement(state, action: PayloadAction<string>) {
+      const item = state.data.find((item) => item._id === action.payload);
+      if (item && item.counter > 1) {
+        item.counter -= 1;
+        item.userPrice = item.price * item.counter;
+        localStorage.setItem("shop", JSON.stringify(state.data));
+      }
+    },
 
-      if (exists) {
-
-        state.wishlist = state.wishlist.filter(
-          (item) => item._id !== payload._id,
-        );
+    toggleWishlist(state, action: PayloadAction<ProductType>) {
+      const index = state.wishlist.findIndex((item) => item._id === action.payload._id);
+      
+      if (index !== -1) {
+        state.wishlist.splice(index, 1);
       } else {
-
-        state.wishlist.push(payload);
+        state.wishlist.push(action.payload);
       }
-
-      localStorage.setItem("wishlist", JSON.stringify(current(state).wishlist));
+      localStorage.setItem("wishlist", JSON.stringify(state.wishlist));
     },
 
-    removeFromWishlist(state, { payload }: PayloadAction<string>) {
-      state.wishlist = state.wishlist.filter((item) => item._id !== payload);
-      localStorage.setItem("wishlist", JSON.stringify(current(state).wishlist));
-    },
-
-
-    increment(state, { payload }) {
-      state.data = state.data.map((value) => {
-        if (value._id === payload) {
-          return {
-            ...value,
-            counter: (value.counter += 1),
-            userPrice: value.price * value.counter,
-          };
-        }
-        return value;
-      });
-      localStorage.setItem("shop", JSON.stringify(current(state).data));
-    },
-    decrement(state, { payload }: PayloadAction<string>) {
-      const product = state.data.find((value) => value._id === payload);
-      if (product && product.counter > 1) {
-        product.counter -= 1;
-        product.userPrice = product.price * product.counter;
-      }
-      localStorage.setItem("shop", JSON.stringify(current(state).data));
+    getCoupon(state, action: PayloadAction<number>) {
+      state.coupon = action.payload;
     },
   },
 });
 
-export const {
-  getData,
-  deleteData,
-  increment,
-  decrement,
-  toggleWishlist,
-  removeFromWishlist,
+export const { 
+  getData, 
+  deleteData, 
+  increment, 
+  decrement, 
+  getCoupon, 
+  toggleWishlist 
 } = shopSlice.actions;
 
 export default shopSlice.reducer;
